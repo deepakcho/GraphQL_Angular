@@ -9,17 +9,17 @@ import * as d3 from 'd3';
   templateUrl: './bar-chart.component.html',
   styleUrl: './bar-chart.component.scss',
 })
-export class BarChartComponent {
+export class BarChartComponent<T> {
   @ViewChild('chartContainer', { static: true }) chartContainer!: ElementRef;
 
-  private data: any[] = []; // Array to store the parsed data
+  private data: T[] = []; // Array to store the parsed data
   private svg: any;
   private margin = { top: 20, right: 30, bottom: 200, left: 40 };
   private width: number = 0;
   private height: number = 800;
   private resizeObserver: ResizeObserver | undefined;
 
-  @Input() set chartData(data: any[]) {
+  @Input() set chartData(data: T[]) {
     this.data = data;
     this.updateChart();
   }
@@ -63,13 +63,13 @@ export class BarChartComponent {
 
     const x = d3
       .scaleBand()
-      .domain(this.data.map((d) => d[this.xField]))
+      .domain(this.data.map((d:any) => d[this.xField]))
       .range([0, this.width])
       .padding(0.1);
 
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(this.data, (d) => d[this.yField])! * 1.1])
+      .domain([0, d3.max(this.data, (d:any) => d[this.yField])! * 1.1])
       .range([this.height, 0]);
 
     const xAxis = d3.axisBottom(x);

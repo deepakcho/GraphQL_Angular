@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RepoStore } from './store/repo.store';
-import { UserStore } from './store/user.store';
+import { AppStore } from './store/app.store';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { User } from './model/user.model';
 
@@ -14,15 +13,18 @@ import { User } from './model/user.model';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  public repoStore = inject(RepoStore);
-  public userStore = inject(UserStore);
+  public appStore = inject(AppStore);
   public selectedUser!: User;
+  public users = this.appStore.searchedUsers;
+  public loading = this.appStore.loading;
+  public repositories = this.appStore.repositories;
+
 
   public searchUserByTerm(searchTerm: string) {
-    this.userStore.searchUser(searchTerm);
+    this.appStore.searchUser(searchTerm);
   }
   public selectUser(user: User) {
-    this.repoStore.loadRepo(user.login);
+    this.appStore.loadRepo(user.login);
     this.selectedUser = user;
   }
 }

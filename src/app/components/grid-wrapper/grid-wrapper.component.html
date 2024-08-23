@@ -1,6 +1,6 @@
 <div>
-  @if(allRepositories().length) {
+  @if(repositories().length) {
   <a class="button" [routerLink]="'visualize'">Chart View</a>
-  <app-grid [rowData]="allRepositories()" [colDefs]="allColumns()" />
+  <app-grid [rowData]="repositories()" [colDefs]="colDefs()" />
   }
 </div>

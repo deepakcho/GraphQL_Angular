@@ -8,17 +8,22 @@
     (focus)="onFocus()"
     (blur)="onBlur()"
   />
-  @if(searchTerm) {
-  <div class="overlay" *ngIf="showList">
-    <ul *ngIf="!loading(); else loadingTmpl" class="search-result">
+  @if(searchTerm && showList) {
+  <div class="overlay">
+    @if(!loading()) {
+    <ul class="search-result">
       <li *ngFor="let user of users()" (click)="selectUser(user)">
         {{ user.name }} - <strong>{{ user.login }}</strong>
       </li>
-      <li *ngIf="!users().length">No result</li>
+      @if(!users().length){
+      <li>No result</li>
+      }
     </ul>
+    } @else {
+    <ul class="search-result">
+      <li>Loading...</li>
+    </ul>
+    }
   </div>
   }
 </div>
-<ng-template #loadingTmpl>
-  <div>Loading...</div>
-</ng-template>

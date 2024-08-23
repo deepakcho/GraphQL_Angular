@@ -1,60 +1,31 @@
 import { inject, Injectable } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { catchError, map, of, throwError } from 'rxjs';
-import { RepoStore } from './store/repo.store';
+import { Apollo } from 'apollo-angular';
+import { catchError, map, throwError } from 'rxjs';
+import { GET_USERS_REPOSITORIES, SEARCH_USER_BY_TERM } from './qraphql.query';
 
 @Injectable()
 export class GraphQLService {
-  constructor() {}
-  apollo = inject(Apollo);
+  private apollo = inject(Apollo);
 
-  searchUser(searchTerm: string) {
-    const SEARCH_TERM = gql`
-      query SearchUsersByLogin($searchTerm: String!) {
-        search(query: $searchTerm, type: USER, first: 10) {
-          nodes {
-            ... on User {
-              login
-              name
-              url
-            }
-          }
-        }
-      }
-    `;
-    // return of([]);
+  public searchUser(searchTerm: string) {
     return this.apollo
       .watchQuery({
-        query: SEARCH_TERM,
+        query: SEARCH_USER_BY_TERM(),
         variables: { searchTerm },
       })
       .valueChanges.pipe(
         map((result: any) => result.data.search.nodes),
         catchError((error) => {
           console.error('GraphQL error:', error);
-          return throwError(() => new Error('Failed to fetch repositories'));
+          return throwError(() => new Error('Failed to fetch users'));
         })
       );
   }
 
-  getRepositories(username: string) {
-    const GET_REPOSITORIES = gql`
-      query ($username: String!) {
-        user(login: $username) {
-          repositories(first: 50) {
-            nodes {
-              name
-              url
-              stargazerCount
-            }
-          }
-        }
-      }
-    `;
-    // return of([]);
+  public getRepositories(username: string) {
     return this.apollo
       .watchQuery({
-        query: GET_REPOSITORIES,
+        query: GET_USERS_REPOSITORIES(),
         variables: { username },
       })
       .valueChanges.pipe(
