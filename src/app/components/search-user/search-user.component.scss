@@ -1,0 +1,33 @@
+.search-box {
+  .input {
+    height: 50px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    box-shadow: inset -2px -6px #000;
+    outline: 1px solid #000;
+  }
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    z-index: 999;
+    .search-result {
+      border-radius: 5px;
+      box-shadow: 1px 1px 7px #000;
+      list-style: none;
+      padding: 0;
+      background: white;
+      margin: 0;
+      li {
+        list-style: none;
+        cursor: pointer;
+        padding: 5px 10px 5px;
+        border-bottom: 1px solid #bdbdbd;
+      }
+    }
+  }
+}

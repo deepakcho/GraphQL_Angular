@@ -1,1 +1,27 @@
-<router-outlet /> <app-bar-chart></app-bar-chart>
+<div class="container">
+  <h1 class="title">Github User's Repository Star's Checker</h1>
+  <header class="header">
+    <div class="search-area">
+      <app-search-user
+        [users]="userStore.users()"
+        [loading]="userStore.loading()"
+        (selectedUser)="selectUser($event)"
+        (serchedTerm)="searchUserByTerm($event)"
+      ></app-search-user>
+    </div>
+  </header>
+  <div *ngIf="!repoStore.loading(); else loadingTmpl">
+    @if(repoStore.repositories().length !== 0) {
+
+    <h2>Showing data for {{ selectedUser?.name }}</h2>
+    }
+  </div>
+  <div *ngIf="repoStore.loading() && repoStore.repositories().length === 0">
+    <p>No Data found</p>
+  </div>
+
+  <ng-template #loadingTmpl>
+    <div class="loading">Loading...</div>
+  </ng-template>
+  <router-outlet />
+</div>

@@ -1,0 +1,10 @@
+<div>
+  @if(repositories().length) {
+  <a class="button" [routerLink]="'/'">Table View</a>
+  <app-bar-chart
+    [chartData]="repositories()"
+    [xField]="'name'"
+    [yField]="'stargazerCount'"
+  ></app-bar-chart>
+  }
+</div>

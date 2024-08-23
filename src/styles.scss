@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@ag-grid-community/styles/ag-grid.css";
+@import "@ag-grid-community/styles/ag-theme-quartz.css";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #dcdcdc;
+}
+
+.button {
+  text-decoration: none;
+  padding: 5px 10px 5px;
+  background: #b7b7b7;
+  border-radius: 5px;
+  color: #080808;
+  cursor: pointer;
+  transition: box-shadow 0.5s;
+}
+.button:focus,
+.button:active {
+  box-shadow: 3px 4px;
+}
+
+.button:hover {
+  box-shadow: 3px 4px;
+}

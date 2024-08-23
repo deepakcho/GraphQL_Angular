@@ -1,0 +1,11 @@
+@if(rowData().length){
+<div class="content">
+  <ag-grid-angular
+    style="width: 100%; height: 500px"
+    [class]="'ag-theme-quartz-dark'"
+    [rowData]="rowData()"
+    [columnDefs]="colDefs()"
+    [defaultColDef]="defaultColDef"
+  />
+</div>
+}

@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-community/styles": "^32.1.0",
     "@angular/animations": "^18.2.0",
     "@angular/common": "^18.2.0",
     "@angular/compiler": "^18.2.0",
@@ -18,8 +19,15 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@apollo/client": "^3.11.4",
+    "@ngrx/effects": "^18.0.2",
+    "@ngrx/signals": "^18.0.2",
+    "@ngrx/store": "^18.0.2",
     "@types/d3": "^7.4.3",
+    "ag-grid-angular": "^32.1.0",
+    "apollo-angular": "^7.1.2",
     "d3": "^7.9.0",
+    "graphql": "^16.8.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
