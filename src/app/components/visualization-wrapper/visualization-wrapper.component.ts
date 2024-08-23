@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { BarChartComponent } from '../../shared/bar-chart/bar-chart.component';
 import { AppStore } from '../../store/app.store';
 import { RouterLink } from '@angular/router';
@@ -15,14 +15,22 @@ export class VisualizationWrapperComponent {
   public allRepositories = this.appStore.repositories;
   public xAxis = 'name';
   public yAxis = 'stargazerCount';
-
+  public searchTerm = signal('');
   public repositories = computed(() => {
     if (!this.allRepositories().length) return [];
-    return this.allRepositories().map((data) => {
-      return {
-        name: data.name,
-        stargazerCount: data.stargazerCount || 0,
-      };
-    });
+    const searchKey = this.searchTerm();
+    return this.allRepositories()
+      .filter((repo) => {
+        return !searchKey ? true : repo.name.includes(searchKey);
+      })
+      .map((data) => {
+        return {
+          name: data.name,
+          stargazerCount: data.stargazerCount || 0,
+        };
+      });
   });
+  public searchRepositories(str: string) {
+    this.searchTerm.set(str);
+  }
 }

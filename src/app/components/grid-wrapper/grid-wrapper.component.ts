@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { GridComponent } from '../../shared/grid/grid.component';
 import { AppStore } from '../../store/app.store';
 import { RouterLink } from '@angular/router';
@@ -13,15 +13,21 @@ import { ColDef } from 'ag-grid-community';
 export class GridWrapperComponent {
   public appStore = inject(AppStore);
   public allRepositories = this.appStore.repositories;
+  public searchTerm = signal('');
   public repositories = computed(() => {
     if (!this.allRepositories().length) return [];
-    return this.allRepositories().map((data) => {
-      return {
-        name: data.name,
-        url: data.url,
-        stargazerCount: data.stargazerCount,
-      };
-    });
+    const searchKey = this.searchTerm();
+    return this.allRepositories()
+      .filter((repo) => {
+        return !searchKey ? true : repo.name.includes(searchKey);
+      })
+      .map((data) => {
+        return {
+          name: data.name,
+          url: data.url,
+          stargazerCount: data.stargazerCount,
+        };
+      });
   });
 
   public colDefs = computed(() => {
@@ -30,4 +36,7 @@ export class GridWrapperComponent {
       return { field: d } as ColDef;
     });
   });
+  public searchRepositories(str: string) {
+    this.searchTerm.set(str);
+  }
 }

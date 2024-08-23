@@ -1,6 +1,15 @@
 <div>
-  @if(repositories().length) {
+  @if(allRepositories().length) {
   <a class="button" [routerLink]="'/'">Table View</a>
+  <input
+    class="input"
+    type="search"
+    placeholder="Filter Repositories"
+    #input
+    (input)="searchRepositories(input.value)"
+  />
+
+  } @if(repositories().length) {
   <app-bar-chart
     [chartData]="repositories()"
     [xField]="xAxis"

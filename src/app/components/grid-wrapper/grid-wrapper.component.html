@@ -1,6 +1,14 @@
 <div>
-  @if(repositories().length) {
+  @if(allRepositories().length) {
   <a class="button" [routerLink]="'visualize'">Chart View</a>
+  <input
+    class="input"
+    type="search"
+    placeholder="Search Repositories"
+    #input
+    (input)="searchRepositories(input.value)"
+  />
+  } @if(repositories().length) {
   <app-grid [rowData]="repositories()" [colDefs]="colDefs()" />
   }
 </div>
